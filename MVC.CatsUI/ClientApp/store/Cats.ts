@@ -8,8 +8,8 @@ export interface CatsState {
 }
 
 export interface Cats {
-    OwnerGender: string;
-    name: string;
+    ownerGender: string;
+    petName: string;
 }
 
 // ACTIONS
@@ -28,7 +28,7 @@ type KnownAction = RequestCatsAction | ReceiveCatsAction;
 // Creators - functions exposed to UI components that will trigger a state transition
 export const actionCreators = {
     requestCats: (): AppThunkAction<KnownAction> => (dispatch, getState) => {
-        let fetchTask = fetch(`api/SampleData/CatByGender`)
+        let fetchTask = fetch(`api/Cats/CatByGender`)
             .then(response => response.json() as Promise<Cats[]>)
             .then(data => {
                 dispatch({ type: 'RECEIVE_CATS', cats: data });

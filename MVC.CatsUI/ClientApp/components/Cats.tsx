@@ -18,12 +18,12 @@ class Cats extends React.Component<CatsProps, {}> {
 
     // This method runs when the component is first added to the page - Set Props
     componentWillMount() {
-
+        this.props.requestCats();
     }
 
     // This method runs when incoming props (e.g., route params) change - Set Props
     componentWillReceiveProps(nextProps: CatsProps) {
-
+        
     }
 
     public render() {
@@ -37,13 +37,13 @@ class Cats extends React.Component<CatsProps, {}> {
     }
 
     private renderCatsList(ownerGender: OwnerGender) {
-        return <ul className='list-group'>
+        return <ul className='list-group'>                   
                     {this.props.cats
-                        .filter(cat => cat.OwnerGender === ownerGender.toString())
-                        .map(cat => 
-                            <li className="list-group-item">{ cat.name } </li>
-                        )}
-        </ul>;
+                        .filter(cat => cat.ownerGender === ownerGender.toString())
+                        .map((cat,i) =>
+                            <li key={ i } className="list-group-item">{cat.petName} </li>
+                     )}
+                </ul>;
     }    
 }
 

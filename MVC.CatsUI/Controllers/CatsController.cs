@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using MVC.CatsUI.Common;
 using MVC.CatsUI.Models;
+using MVC.CatsUI.UIModels;
+using Newtonsoft.Json;
 
 namespace MVC.CatsUI.Controllers
 {
@@ -21,16 +23,16 @@ namespace MVC.CatsUI.Controllers
         }
 
         [HttpGet("[action]")]
-        public virtual async Task<IEnumerable<KeyValuePair<string,string>>> CatByGender()
+        public virtual async Task<IEnumerable<PetNameByGender>> CatByGender()
         {
             try
             {
                 // Retrieve data from API and deserialize
                 string jsonResponse = await AppHelper.APIGetData(_appSettings.Value.CatsMediaType, _appSettings.Value.CatsUrl, APIResponseType.Json);
-                
+                List<Owner> ownwers = JsonConvert.DeserializeObject<List<Owner>>(jsonResponse);
 
-                // Filter and retrieve required Data
-                IEnumerable<KeyValuePair<string, string>> cats = new List<KeyValuePair<string, string>>();
+                // Filter and retrieve required Data                
+                IEnumerable<PetNameByGender> cats = ownwers.Where(p => p.Pets != null).SelectMany(m => m.Pets.Where(n => (n.Type == PetType.Cat)).Select(o => new PetNameByGender() { OwnerGender = m.Gender.ToString(), PetName = o.Name })).ToList();
 
                 return cats;
             }
