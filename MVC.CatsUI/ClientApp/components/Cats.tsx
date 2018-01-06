@@ -40,6 +40,7 @@ class Cats extends React.Component<CatsProps, {}> {
         return <ul className='list-group'>                   
                     {this.props.cats
                         .filter(cat => cat.ownerGender === ownerGender.toString())
+                        .sort((a,b) => a.petName < b.petName ? -1 : (a.petName > b.petName ? 1 : 0))
                         .map((cat,i) =>
                             <li key={ i } className="list-group-item">{cat.petName} </li>
                      )}
@@ -52,3 +53,6 @@ export default connect(
     (state: ApplicationState) => state.cats,    // Selects which state properties are merged into the component's props
     CatsState.actionCreators                    // Selects which action creators are merged into the component's props
 )(Cats) as typeof Cats;
+
+
+
