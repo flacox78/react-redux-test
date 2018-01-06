@@ -4,7 +4,8 @@ import { RouteComponentProps } from 'react-router-dom';
 export default class Home extends React.Component<RouteComponentProps<{}>, {}> {
     public render() {
         return <div>
-            <h1>AGL - Test</h1>
+            <img src={require('../img/agl-logo.png')} />
+            <h1>Frameworks</h1>
             <p>Single Page application, built with:</p>
             <ul>
                 <li><b>ASP.NET Core</b> and <b>C#</b> for cross-platform server-side code</li>
