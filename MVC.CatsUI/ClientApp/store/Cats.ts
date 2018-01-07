@@ -28,7 +28,7 @@ type KnownAction = RequestCatsAction | ReceiveCatsAction;
 // Creators - functions exposed to UI components that will trigger a state transition
 export const actionCreators = {
     requestCats: (): AppThunkAction<KnownAction> => (dispatch, getState) => {
-        let fetchTask = fetch(`api/Cats/CatByGender`)
+        let fetchTask = fetch(`api/Cats/CatsByGender`)
             .then(response => response.json() as Promise<Cats[]>)
             .then(data => {
                 dispatch({ type: 'RECEIVE_CATS', cats: data });

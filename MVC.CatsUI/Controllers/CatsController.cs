@@ -23,7 +23,7 @@ namespace MVC.CatsUI.Controllers
         }
 
         [HttpGet("[action]")]
-        public virtual async Task<IEnumerable<PetNameByGender>> CatByGender()
+        public virtual async Task<List<PetNameByGender>> CatsByGender()
         {
             try
             {
@@ -31,9 +31,12 @@ namespace MVC.CatsUI.Controllers
                 string jsonResponse = await AppHelper.APIGetData(_appSettings.Value.CatsMediaType, _appSettings.Value.CatsUrl, APIResponseType.Json);
                 List<Owner> ownwers = JsonConvert.DeserializeObject<List<Owner>>(jsonResponse);
 
-                // Filter and retrieve required Data                
-                IEnumerable<PetNameByGender> cats = ownwers.Where(p => p.Pets != null).SelectMany(m => m.Pets.Where(n => (n.Type == PetType.Cat)).Select(o => new PetNameByGender() { OwnerGender = m.Gender.ToString(), PetName = o.Name })).ToList();
+                // Avoid invalid response
+                if (ownwers == null) return new List<PetNameByGender>();
 
+                // Filter and retrieve required Data, finally remove duplicates                
+                List<PetNameByGender> cats = ownwers.Where(p => p.Pets != null).SelectMany(m => m.Pets.Where(n => (n.Type == PetType.Cat)).Select(o => new PetNameByGender() { OwnerGender = m.Gender.ToString(), PetName = o.Name })).Distinct().ToList();
+                
                 return cats;
             }
             catch (Exception ex)
