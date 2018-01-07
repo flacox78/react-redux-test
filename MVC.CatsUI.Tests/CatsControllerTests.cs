@@ -30,7 +30,7 @@ namespace MVC.CatsUI.Tests
                 
                 Assert.AreEqual(7, cats.Count, "Total Cats");                
                 Assert.AreEqual(4, cats.FindAll(m => m.OwnerGender == Gender.Male.ToString()).Count, "Total Cats - Male");                
-                Assert.AreEqual(3, cats.FindAll(m => m.OwnerGender == Gender.Male.ToString()).Count, "Total Cats - Female");                
+                Assert.AreEqual(3, cats.FindAll(m => m.OwnerGender == Gender.Female.ToString()).Count, "Total Cats - Female");                
                 Assert.IsTrue(cats.Find(m => m.OwnerGender == Gender.Male.ToString() && m.PetName == "Garfield") != null, "Male cats contains Garfield");
                 Assert.IsTrue(cats.Find(m => m.OwnerGender == Gender.Female.ToString() && m.PetName == "Garfield") != null, "Female cats contains Garfield");
             }
