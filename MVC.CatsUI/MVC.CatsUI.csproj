@@ -24,11 +24,18 @@
   <ItemGroup>
     <None Remove="ClientApp\components\Cats.tsx" />
     <None Remove="ClientApp\store\Cats.ts" />
+    <None Remove="__tests__\reducers\Cats.test.ts" />
   </ItemGroup>
 
   <ItemGroup>
     <TypeScriptCompile Include="ClientApp\components\Cats.tsx" />
     <TypeScriptCompile Include="ClientApp\store\Cats.ts" />
+    <TypeScriptCompile Include="__tests__\reducers\Cats.test.ts" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="__tests__\actions\" />
+    <Folder Include="__tests__\componets\" />
   </ItemGroup>
 
   <Target Name="DebugRunWebpack" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('wwwroot\dist') ">
