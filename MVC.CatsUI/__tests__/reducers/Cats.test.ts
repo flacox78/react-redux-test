@@ -1,8 +1,10 @@
 ﻿import { reducer, CatsState } from '../../ClientApp/store/Cats';
+import { } from 'jest';
+
 
 describe('Reducer', () => {
     it('should return the initial state', () => {
-        expect(reducer(null, {})).toEqual({ cats: [] })
+        expect(reducer({ cats: [] }, {type: ''})).toEqual({ cats: [] })
     })
 
     it('should handle REQUEST_CATS', () => {
